@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
 
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap" rel="stylesheet">
   
   <title>Frontend Mentor | FAQ Accordion Card</title>
 
@@ -12,27 +13,171 @@
   <style>
     .attribution { font-size: 11px; text-align: center; }
     .attribution a { color: hsl(228, 45%, 44%); }
+
+    body {
+      background-image: linear-gradient(hsl(273, 75%, 66%), hsl(240, 73%, 65%));
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      font-family: 'Kumbh Sans', sans-serif;
+    }
+
+    main {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-content: center;
+      height: 600px;
+    }
+
+    #flex-container {
+      height: 500px;
+      width: 950px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-content: center;
+      background-color: white;
+      align-self: flex-end;
+      border-radius: 20px;
+    }
+
+    .img-div {
+      width: 500px;
+      height: 500px;
+      align-self: center;
+      background-image: url("images/illustration-woman-online-desktop.svg"),
+        url("images/bg-pattern-desktop.svg");
+      background-repeat: no-repeat;
+      background-position: right;
+      margin-right: 70px;
+    }
+
+    #box-img {
+      margin-top: 200px;
+      margin-left: -93px;
+    }
+
+    .faq-div {
+      width: 500px;
+      height: 100%;
+      align-self: center;
+    }
+
+    .faq-questions-div {
+      padding: 20px;
+      padding-right: 50px;
+    }
+
+    h1 {
+      font-weight: 700;
+      padding-top: 20px;
+      color: hsl(238, 29%, 16%);
+    }
+
+    hr {
+      background-color: hsl(240, 5%, 91%);
+      border: 1px solid hsl(240, 5%, 91%);
+    }
+
+    .icon-arrow {
+      float: right;
+      padding-top: 5px;
+      padding-right: 10px;
+    }
+
+    .answer {
+      color: hsl(240, 6%, 50%);
+    }
+
+    .question {
+      color: hsl(237, 12%, 33%);
+      cursor: pointer;
+    }
+
+    .question:hover {
+      color: hsl(14, 88%, 65%);
+    }
+
+    .active {
+      color: hsl(238, 29%, 16%);
+      font-weight: 700;
+    }
+
+    .rotated {
+      transform: rotate(180deg);
+      float: right;
+      padding-bottom: 5px;
+      padding-left: 10px;
+    }
+
   </style>
 </head>
 <body>
-  How many team members can I invite?
-  You can invite up to 2 additional users on the Free plan. There is no limit on 
-  team members for the Premium plan.
+  <main>
+<div id="flex-container" class="center">
+  <div class="img-div"> 
+    <img id="box-img" src="images/illustration-box-desktop.svg">
+  </div>
+  <div class="faq-div">
+    <div class="faq-questions-div">
+      <h1>FAQ</h1>
+      <script>
+        var faqs = [
+          {
+            question: "How many team members can I invite?",
+            answer: "You can invite up to 2 additional users on the Free plan. \nThere is no limit on team members for the Premium plan."
+          },
+          {
+            question: "What is the maximum file upload size?",
+            answer: "No more than 2GB. All files in your account must fit your allotted storage space."
+          },
+          {
+            question: "How do I reset my password?",
+            answer: "Click “Forgot password” from the login page or “Change password” from your profile page.\nA reset link will be emailed to you."
+          },
+          {
+            question: "Can I cancel my subscription?",
+            answer: "Yes! Send us a message and we’ll process your request no questions asked."
+          },
+          {
+            question: "Do you provide additional support?",
+            answer: "Chat and email support is available 24/7. Phone lines are open during normal business hours."
+          }];
+        
+        function showAnswer(i){
+          var current_active = document.querySelectorAll('.active');
+          var current_rotated = document.querySelectorAll('.rotated');
 
-  What is the maximum file upload size?
-  No more than 2GB. All files in your account must fit your allotted storage space.
+          if (current_active.length > 0) {
+            current_active[0].className = current_active[0].className.replace(" active", "");
+            current_rotated[0].className = current_rotated[0].className.replace(" rotated", "");
+            document.querySelectorAll(".answer").forEach(x => x.style.display = "none");
 
-  How do I reset my password?
-  Click “Forgot password” from the login page or “Change password” from your profile page.
-  A reset link will be emailed to you.
+            if (current_active[0].id == 'question-'+i){
+              document.getElementById('answer-'+i).style.display = "none";
+              return;
+            }
+          }
 
-  Can I cancel my subscription?
-  Yes! Send us a message and we’ll process your request no questions asked.
+          document.getElementById('answer-'+i).style.display = "block";
+          document.getElementById('question-'+i).className += " active";
+          document.getElementById('icon-arrow-'+i).className += " rotated"
+        };
 
-  Do you provide additional support?
-  Chat and email support is available 24/7. Phone lines are open during normal business hours.
+        var i = 0;
+        for (faq of faqs) {
+          document.write("<p><div id='question-"+i+"' class='question' onclick=showAnswer("+i+");>"
+          +faq.question+"<img id='icon-arrow-"+i+"' class='icon-arrow'" 
+          +"src='images/icon-arrow-down.svg'></div>"+
+          "<div class='answer' id='answer-"+i+"' style='display: none;'><br>"+faq.answer+"</div></p><hr>");
+          i += 1;
+        };
 
+      </script></div>
+</div>
+</div></main>
   <div class="attribution">
+    <br>
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
     Coded by <a href="#">Your Name Here</a>.
   </div>
